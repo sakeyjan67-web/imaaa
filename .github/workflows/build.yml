@@ -26,14 +26,12 @@ jobs:
           java-version: '17'
           cache: gradle
 
-      - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.5'
-
-      - name: Make Gradle wrapper executable
+      - name: Fix Gradle wrapper line endings
         working-directory: New folder
-        run: chmod +x gradlew
+        run: |
+          sed -i 's/\r$//' gradlew
+          chmod +x gradlew
+          head -n 1 gradlew
 
       - name: Build debug APK
         working-directory: New folder
